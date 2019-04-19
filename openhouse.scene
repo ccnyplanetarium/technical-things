@@ -1,0 +1,229 @@
+local assetHelper = asset.require('util/asset_helper')
+local sceneHelper = asset.require('util/scene_helper')
+local propertyHelper = asset.require('util/property_helper')
+
+-- Specifying which other assets should be loaded in this scene
+asset.require('spice/base')
+assetHelper.requestAll(asset, 'scene/solarsystem/sun')
+asset.require('scene/solarsystem/planets')
+asset.require('scene/solarsystem/planets/mars/moons/phobos')
+asset.require('scene/solarsystem/planets/mars/moons/deimos')
+asset.require('scene/solarsystem/dwarf_planets/pluto/system')
+asset.require('scene/solarsystem/missions/voyager/voyager1')
+asset.require('scene/solarsystem/missions/voyager/voyager2')
+--asset.require('scene/solarsystem/planets/earth/satellites/misc/spacestations.asset')
+assetHelper.requestAll(asset, 'scene/digitaluniverse')
+-- Load default key bindings applicable to most scenes
+asset.require('util/ccny_keybindings')
+asset.require('util/default_dashboard')
+asset.require('util/default_joystick')
+asset.require('util/webgui')
+asset.request('customization/globebrowsing')
+
+-- Keybindings that are specific for this scene
+local Keybindings = {
+
+
+    {
+    Key = "h",
+    Name="Hide Trails",
+    Command = "openspace.setPropertyValue('Scene.*Trail.Renderable.Enabled', false)",
+    Documentation = "Disables visibility of the trails",
+    GuiPath = "/Rendering",
+    Local = false
+    },
+
+    {
+        Key = "Shift+h",
+        Name="Show Trails",
+        Command = "openspace.setPropertyValue('Scene.*Trail.Renderable.Enabled', true)",
+        Documentation = "Enables visibility of the trails",
+        GuiPath = "/Rendering",
+        Local = false
+    },
+
+    {
+       Key = "c",
+       Command = propertyHelper.invert('Scene.Mars.Renderable.Layers.ColorLayers.CTX_Mosaic_AWS.Enabled'),
+       Documentation = "enable ctx",
+       Local = false
+       },
+       {
+       Key = "e",
+       Command = "openspace.setPropertyValueSingle('Scene.Mars.Scale.Scale', 5000);" ..
+                "openspace.setPropertyValueSingle('Scene.Jupiter.Scale.Scale', 2500);" ..
+                "openspace.setPropertyValueSingle('Scene.Venus.Scale.Scale', 5000);" ..
+                "openspace.setPropertyValueSingle('Scene.Neptune.Scale.Scale', 5000);" ..
+                "openspace.setPropertyValueSingle('Scene.Uranus.Scale.Scale', 5000);" ..
+                "openspace.setPropertyValueSingle('Scene.Earth.Scale.Scale', 5000);" ..
+                "openspace.setPropertyValueSingle('Scene.Saturn.Scale.Scale', 2500);" ..
+                "openspace.setPropertyValueSingle('Scene.Mercury.Scale.Scale', 5000);" ,
+       Documentation = "Planets embiggen",
+       Local = false
+       },
+       {
+       Key = "Shift+e",
+       Command = "openspace.setPropertyValueSingle('Scene.Mars.Scale.Scale', 1);" ..
+                "openspace.setPropertyValueSingle('Scene.Jupiter.Scale.Scale', 1);" ..
+                "openspace.setPropertyValueSingle('Scene.Venus.Scale.Scale', 1);" ..
+                "openspace.setPropertyValueSingle('Scene.Neptune.Scale.Scale', 1);" ..
+                "openspace.setPropertyValueSingle('Scene.Uranus.Scale.Scale', 1);" ..
+                "openspace.setPropertyValueSingle('Scene.Earth.Scale.Scale', 1);" ..
+                "openspace.setPropertyValueSingle('Scene.Saturn.Scale.Scale', 1);" ..
+                "openspace.setPropertyValueSingle('Scene.Mercury.Scale.Scale', 1);" ,
+       Documentation = "Planets embiggen",
+       Local = false
+       },
+       {
+       Key = "n",
+       Command = "openspace.globebrowsing.goToGeo(40.82, -73.95, 10000000)",
+       Documentation = "globebrowse to CCNY",
+       Local = false
+       },
+       {
+       Key = "Shift+g",
+       Command = "openspace.globebrowsing.goToGeo(36.2135, -112.0581, 10000000)",
+       Documentation = "globebrowse to Grand Canyon",
+       Local = false
+       },
+       {
+       Key = "l",
+       Command = "openspace.globebrowsing.goToGeo(40.7439, -73.9351, 1000000)",
+       Documentation = "globebrowse to Laguardia",
+       Local = false
+       },
+       {
+       Key = "Shift+Ctrl+g",
+       Command = "openspace.globebrowsing.goToGeo(-37.2,188.3, 100000)",
+       Documentation = "Goto Gorgonum_Chaos",
+       Local = false
+       },
+
+       {
+       Key = "Shift+Ctrl+f",
+       Command = "openspace.globebrowsing.goToGeo(28.3,172.7, 100000)",
+       Documentation = "Goto Flow_Boundary_In_Elysium_Planitia",
+       Local = false
+       },
+       {
+       Key = "Shift+Ctrl+l",
+       Command = "openspace.globebrowsing.goToGeo(25.9713375, 173.8940272, 100000)",
+       Documentation = "Toggle Flow_Boundary_In_Elysium_Planitia",
+       Local = false
+       },
+       {
+       Key = "Shift+Ctrl+t",
+       Command = "openspace.globebrowsing.goToGeo(-11.8532833,-96.8191806 , 100000)",
+       Documentation = "Goto Noctis_Region_Pit",
+       Local = false
+       },
+       {
+       Key = "Shift+Ctrl+m",
+       Command = "openspace.globebrowsing.goToGeo(-5.0656668 ,154.9177582 , 100000)",
+       Documentation = "Goto Martian_Meanders_and_Scroll_Bars_Aeolis",
+       Local = false
+       },
+       {
+       Key = "Shift+Ctrl+c",
+       Command = "openspace.globebrowsing.goToGeo(-6.5478 ,-76.923 , 100000)",
+       Documentation = "Goto Candor Chasma",
+       Local = false
+       },
+       {
+       Key = "Shift+m",
+       Command = "openspace.setPropertyValueSingle('Scene.Mars.Renderable.PerformShading', true)" ..
+                 "openspace.setPropertyValueSingle('Scene.MarsAtmosphere.Renderable.Enabled', true)" ..
+                 "openspace.setPropertyValueSingle('Scene.Mars.Renderable.Layers.ColorLayers.MOC_WA_Color_Utah.Settings.Multiplier', 1.000000)" ..
+                 "openspace.setPropertyValueSingle('Scene.Mars.Renderable.Layers.ColorLayers.MOC_WA_Color_Utah.Settings.Gamma', 2.11236);",
+       Documentation = "Mars Full Globe Color Palette with Shading",
+       Local = false
+       },
+       {
+       Key = "m",
+       Command = "openspace.setPropertyValueSingle('Scene.Mars.Renderable.PerformShading', false)" ..
+                 "openspace.setPropertyValueSingle('Scene.MarsAtmosphere.Renderable.Enabled', false)" ..
+                 "openspace.setPropertyValueSingle('Scene.Mars.Renderable.Layers.ColorLayers.MOC_WA_Color_Utah.Settings.Multiplier', 2.582890)" ..
+                 "openspace.setPropertyValueSingle('Scene.Mars.Renderable.Layers.ColorLayers.MOC_WA_Color_Utah.Settings.Gamma', 2.65006);",
+       Documentation = "Mars Full Globe Color Palette without Shading",
+       Local = false
+       },
+       {
+       Key="Ctrl+h",
+       Command = propertyHelper.invert('Scene.Mars.Renderable.Layers.HeightLayers.HiRise Full from Lucian.Enabled') ..
+                 propertyHelper.invert('Scene.Mars.Renderable.Layers.ColorLayers.HiRise Full from Lucian.Enabled'),
+       Documentation = "New Hirise all patches",
+       Local = false
+       },
+
+       {
+       Key="Shift+Ctrl+h",
+       Command = "openspace.setPropertyValueSingle('Scene.Mars.Renderable.Layers.HeightLayers.HiRise Full from Lucian.Enabled', false)"..
+                 "openspace.setPropertyValueSingle('Scene.Mars.Renderable.Layers.ColorLayers.HiRise Full from Lucian.Enabled', false)",
+       Documentation = "New Hirise all patches",
+       Local = false},
+
+       {
+       Key="Shift+c",
+       Command = propertyHelper.invert("Scene.Constellations.Renderable.Enabled"),
+       Documentation = "toggle constellations",
+       Local = false
+       },
+       {
+       Key="Shift+r",
+       Command = propertyHelper.invert("Scene.RadioSphere.Renderable.Enabled"),
+       Documentation = "toggle radio sphere",
+       Local = false
+       }
+}
+
+local earthAsset = asset.require('scene/solarsystem/planets/earth/earth')
+
+asset.onInitialize(function ()
+    local now = openspace.time.currentWallTime()
+    -- Jump back one day to show a complete planet
+    openspace.time.setTime(openspace.time.advancedTime(now, "-1d"))
+
+    sceneHelper.bindKeys(Keybindings)
+
+    openspace.setDefaultGuiSorting()
+
+    openspace.globebrowsing.loadWMSServersFromFile(
+        openspace.absPath("${DATA}/globebrowsing_servers.lua")
+    )
+
+    openspace.markInterestingNodes({
+        "Earth", "Mars", "Moon"
+    })
+
+    openspace.addVirtualProperty(
+        "BoolProperty",
+        "Show Trails",
+        "Scene.*Trail.renderable.Enabled",
+        "Disable or enable all trails of the scene at the same time",
+        true,
+        nil,
+        nil
+    )
+
+    openspace.navigation.setCameraState({
+        Anchor = earthAsset.Earth.Identifier,
+        Position = { 0, 0, 0 },
+        Rotation = { 0.758797, 0.221490, -0.605693, -0.091135 },
+    })
+    openspace.setPropertyValueSingle('Dashboard.IsEnabled', true)
+    openspace.setPropertyValueSingle('RenderEngine.ShowLog', true)
+    openspace.setPropertyValueSingle('RenderEngine.ShowVersion', false)
+    openspace.setPropertyValueSingle('RenderEngine.ShowCamera', true)
+
+    openspace.globebrowsing.goToGeo(58.5877, 16.1924, 20000000)
+end)
+
+asset.onDeinitialize(function ()
+    sceneHelper.unbindKeys(Keybindings)
+
+    openspace.removeVirtualProperty("*Trail.renderable.Enabled")
+
+    openspace.removeInterestingNodes({
+        "Earth", "Mars", "Moon"
+    })
+end)
